@@ -1,0 +1,42 @@
+server:
+  port: 8080
+spring:
+#  data:
+#    redis:
+#      host: localhost
+#      port: 6379
+  jpa:
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+    generate-ddl: true
+    properties:
+      hibernate.format_sql: true
+    hibernate:
+      ddl-auto: create
+
+  datasource:
+    url: jdbc:postgresql://localhost:5433/postgres
+    username: root
+    password: root
+    hikari:
+      schema: app_schema
+      connection-timeout: 10000
+      connection-init-sql: CREATE SCHEMA IF NOT EXISTS app_schema;
+
+
+app:
+  redis:
+    enable: true
+  cache:
+    cacheNames:
+      - "allByCategoryName"
+      - "oneByTitleAndAuthor"
+      - "allBook"
+    caches:
+      allByCategoryName:
+        lifeTime: 8m
+      oneByTitleAndAuthor:
+        lifeTime: 8m
+      allBook:
+        lifeTime: 8m
+    cache-type: "redis"
+
